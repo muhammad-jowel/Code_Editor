@@ -1,0 +1,1 @@
+export const BaseUrl = 'https://image-compression-flax.vercel.app/api/'
