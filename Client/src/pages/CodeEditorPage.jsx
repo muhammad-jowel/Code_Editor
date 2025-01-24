@@ -28,8 +28,8 @@ const CodeEditorPage = () => {
           <div className="p-4 border rounded-md shadow-sm bg-white">
             <h2 className="text-lg font-semibold mb-2">Select Language: </h2>
             <LanguageSelector language={language} onSelect={onSelect} />
-            <div>
-            <Editor
+            <div className="rounded-lg"> 
+              <Editor
                 options={{
                   minimap: {
                     enabled: false,
@@ -51,7 +51,7 @@ const CodeEditorPage = () => {
         <div>
           <div className="p-4 border rounded-md shadow-sm bg-white h-full">
             <h2 className="text-lg font-semibold mb-2">Output</h2>
-              <Output editorRef={editorRef} language={language}/>
+            <Output editorRef={editorRef} language={language} />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { executeCode } from "../utility/Api";
 
 const Output = ({ editorRef, language }) => {
   const [output, setOutput] = useState(null); // State for output
@@ -6,8 +7,27 @@ const Output = ({ editorRef, language }) => {
   const [isError, setIsError] = useState(false); // State for error
   const [toastMessage, setToastMessage] = useState(null); // State for toast messages
 
-  const runCode = () => {
-    // Placeholder for the runCode function logic
+  const runCode = async () => {
+    const sourceCode = editorRef.current.getValue(); // 'editorRef.current' is missing in props
+    if (!sourceCode) return;
+  
+    try {
+      setIsLoading(true);
+      const result = await executeCode(language, sourceCode); // 'executeCode' is not defined.
+      console.log(result);
+  
+      setOutput(result.run.output.split("\n")); // convert to array
+      result.run.stderr ? setIsError(true) : setIsError(false);
+    } catch (error) {
+      console.log(error);
+      setToastMessage({
+        title: "An error occurred.",
+        description: error.message || "Unable to run code",
+        status: "error",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
